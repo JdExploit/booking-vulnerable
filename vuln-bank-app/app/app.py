@@ -1,13 +1,3 @@
-flask==2.3.3
-flask-sqlalchemy==3.0.5
-sqlalchemy==2.0.23
-werkzeug==2.3.7
-pyjwt==2.8.0
-requests==2.31.0
-EOF
-
-# 3. Crea un archivo app.py simplificado que funcione
-cat > app/app.py << 'EOF'
 from flask import Flask, render_template, request, redirect, session, jsonify
 import sqlite3
 import subprocess
@@ -309,3 +299,4 @@ if __name__ == '__main__':
     print("Starting Vulnerable Bank App on http://0.0.0.0:8080")
     print("Default credentials: admin/admin123, alice/password123, bob/qwerty")
     app.run(host='0.0.0.0', port=8080, debug=True)
+
