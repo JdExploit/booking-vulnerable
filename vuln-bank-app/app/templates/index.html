@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>SecureBank - Home</title>
-<style>
+{% extends "base.html" %}
 
-</style>
-</head>
-<body>
-    <nav>
-        <h1>🏦 SecureBank</h1>
-        <div>
-            <a href="/">Home</a>
-            <a href="/login">Login</a>
-            <a href="/dashboard">Dashboard</a>
-        </div>
-    </nav>
+{% block title %}Home - SecureBank{% endblock %}
+
+{% block content %}
     
     <div class="container">
         <h2>Welcome to SecureBank</h2>
@@ -36,30 +24,31 @@
         </div>
 
         
-<div class="recent-comments">
-    <h3>Recent Comments:</h3>
-    <div class="comments-preview">
-        {% if comments %}
-            {% for comment in comments[-5:] %}
-                <div class="comment-preview">
-                    {{ comment|safe }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <p><a href="/view_comments">View all comments</a></p>
-</div>
+        <div class="recent-comments">
+            <h3>Recent Comments:</h3>
+            <div class="comments-preview">
+                {# La variable 'comments' debe ser pasada por la función index() en app.py #}
+                {% if comments %}
+                    {# Mostrar los últimos 5 comentarios #}
+                    {% for comment in comments[-5:] %}
+                        <div class="comment-preview">
+                            {# ATENCIÓN: Esta línea (comment|safe) es la VULNERABILIDAD XSS #}
+                            {{ comment|safe }}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No recent comments yet.</p>
+                {% endif %}
+            </div>
+            <p><a href="/comments">View all comments</a></p>
+        </div>
         
-        <!-- Vulnerabilidad XSS: formulario sin sanitización -->
         <div class="comment-section">
             <h3>Customer Comments</h3>
-            <form action="/post_comment" method="POST">
+            <form action="/comment" method="POST">
                 <textarea name="comment" placeholder="Leave a comment..."></textarea>
                 <button type="submit">Submit</button>
             </form>
         </div>
     </div>
-</body>
-
-</html>
-
+{% endblock %}
