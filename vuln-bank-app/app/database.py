@@ -1,19 +1,20 @@
 import sqlite3
 import os
 
-# Define la ruta de la base de datos que está en el volumen
+# Define la ruta de la base de datos para que coincida con el mapeo del volumen en Docker-Compose
 DATABASE_PATH = '/app/data/app.db'
 
 def init_database():
     """
     Inicializa la base de datos con las tablas y datos de prueba.
-    Esta función se llama al inicio de app.py.
     """
-    # Vulnerabilidad: conexión a BD sin parámetros seguros (aunque en SQLite local es menos crítico)
+    # Intentar crear el directorio si no existe (importante para el volumen /app/data)
+    os.makedirs(os.path.dirname(DATABASE_PATH), exist_ok=True)
+    
     conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
     
-    # Crear tablas
+    # Crear la tabla de usuarios con datos sensibles (SSN)
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS user (
             id INTEGER PRIMARY KEY,
@@ -34,7 +35,6 @@ def init_database():
             (2, 'alice', 'password123', 'alice@securebank.com', 0, 5000.0, '987-65-4321'),
             (3, 'bob', 'qwerty', 'bob@securebank.com', 0, 3000.0, '456-78-9123')
         ]
-        # Nota: Usando VALUES directamente para insertar, ya que es la inicialización.
         cursor.executemany('INSERT INTO user VALUES (?,?,?,?,?,?,?)', users)
         
     conn.commit()
@@ -43,9 +43,9 @@ def init_database():
 def unsafe_query(query):
     """
     Función intencionalmente vulnerable a SQLi (Inyección SQL).
-    Se usa para las rutas /search y /login.
+    
     """
-    # VULNERABILIDAD: Ejecución directa de consulta sin sanitización ni parámetros. 
+    # VULNERABILIDAD: Ejecución directa de consulta sin sanitización ni parámetros.
     conn = sqlite3.connect(DATABASE_PATH)
     cursor = conn.cursor()
     
@@ -54,8 +54,31 @@ def unsafe_query(query):
         results = cursor.fetchall()
     except sqlite3.OperationalError as e:
         results = None
-        # Envolviendo el error para debug
         raise Exception(f"SQL Error during execution: {e} | Query: {query}")
         
     conn.close()
     return results
+
+def get_user_by_id(user_id):
+    """
+    Función para IDOR, usando parámetros seguros para evitar SQLi en el ID,
+    pero vulnerable a IDOR si no hay chequeo de sesión.
+    """
+    conn = sqlite3.connect(DATABASE_PATH)
+    cursor = conn.cursor()
+    # Usamos ? para el ID, pero la consulta está mal protegida en la app principal.
+    cursor.execute("SELECT id, username, email, balance, ssn, is_admin FROM user WHERE id = ?", (user_id,))
+    user_data = cursor.fetchone()
+    conn.close()
+    return user_data
+
+def get_all_users():
+    """
+    Función para el panel de administración.
+    """
+    conn = sqlite3.connect(DATABASE_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, username, email, balance, ssn, is_admin FROM user")
+    users = cursor.fetchall()
+    conn.close()
+    return users
