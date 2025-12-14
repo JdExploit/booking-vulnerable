@@ -4,28 +4,253 @@
     <title>User Profile</title>
     <link rel="stylesheet" href="/static/style.css">
     <style>
-        .profile-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin: 2rem 0;
-        }
-        
-        .sensitive-data {
-            background-color: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 1rem;
-            margin: 1rem 0;
-        }
-        
-        .vulnerable-form {
-            background-color: #f8d7da;
-            border: 1px solid #f5c6cb;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            border-radius: 5px;
-        }
+/*
+ * Estilo UX Designer Expert (Página de Perfil)
+ * Paleta: Azul (#007AFF), Blanco y Gris. Rojo/Naranja para advertencias.
+ */
+
+/* 1. Estilos Globales y de Contenedor */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    color: #333333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 900px; /* Ancho optimizado para vistas de perfil */
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+h2 {
+    color: #333333;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+/* --- 2. Barra de Navegación (NAV) --- */
+
+nav {
+    background-color: #ffffff;
+    padding: 15px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-bottom: 3px solid #007AFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav h1 {
+    margin: 0;
+    color: #007AFF;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+nav div a {
+    color: #333333;
+    text-decoration: none;
+    padding: 8px 12px;
+    margin-left: 10px;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+nav div a:hover {
+    background-color: #e9ecef;
+}
+
+/* --- 3. Tarjeta de Perfil (Profile Card) --- */
+
+.profile-card {
+    background: #ffffff;
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.08);
+    margin: 2rem 0;
+}
+
+.profile-card h3 {
+    color: #007AFF;
+    font-size: 2.5rem;
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.profile-card p {
+    margin: 10px 0;
+    font-size: 1.1rem;
+    color: #555555;
+}
+
+.profile-card strong {
+    color: #333333;
+    font-weight: 600;
+}
+
+/* --- 4. Datos Sensibles (Sensitive Data - IDOR) --- */
+
+.sensitive-data {
+    /* Estilo de advertencia fuerte para datos críticos */
+    background-color: #fcf8e3; /* Amarillo muy pálido */
+    border-left: 5px solid #ffc107; /* Naranja/Amarillo fuerte */
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 8px;
+    color: #8a6d3b;
+}
+
+.sensitive-data h4 {
+    color: #ffc107;
+    margin-top: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.sensitive-data p {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+/* --- 5. Formularios Vulnerables (SSTI & Deserialización) --- */
+
+.vulnerable-form {
+    /* Estilo para los formularios de prueba de seguridad */
+    background-color: #fef4f4; /* Rojo/Rosa muy pálido */
+    border: 1px solid #f5c6cb;
+    border-left: 5px solid #dc3545; /* Línea de peligro roja */
+    padding: 2rem;
+    margin: 2rem 0;
+    border-radius: 8px;
+}
+
+.vulnerable-form h4 {
+    color: #dc3545;
+    margin-top: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.vulnerable-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.vulnerable-form textarea,
+.vulnerable-form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dc3545; /* Borde rojo para la vulnerabilidad */
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: monospace;
+}
+
+.vulnerable-form textarea:focus,
+.vulnerable-form input:focus {
+    border-color: #ff0000;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    outline: none;
+}
+
+.vulnerable-form button[type="submit"] {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.vulnerable-form button[type="submit"]:hover {
+    background-color: #c82333;
+}
+
+.vulnerable-form p small {
+    display: block;
+    margin-top: 10px;
+    color: #dc3545;
+}
+
+/* --- 6. Acciones del Perfil (Profile Actions) --- */
+
+.profile-actions {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    margin-top: 30px;
+}
+
+.profile-actions h4 {
+    color: #333333;
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.profile-actions ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.profile-actions ul li a {
+    text-decoration: none;
+    color: #007AFF;
+    background-color: #f0f8ff; /* Fondo azul muy claro */
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: 1px solid #b3d9ff;
+    transition: background-color 0.2s;
+    font-weight: 500;
+}
+
+.profile-actions ul li a:hover {
+    background-color: #007AFF;
+    color: white;
+    border-color: #007AFF;
+}
+
+/* --- 7. Debug/Información Extra --- */
+div[style*="e9ecef"] { /* Apunta al div de debug */
+    background: #e9ecef !important;
+    padding: 1.5rem !important;
+    margin-top: 3rem !important;
+    border-radius: 8px !important;
+    border: 1px solid #ced4da;
+}
+
+div[style*="e9ecef"] h5 {
+    color: #495057;
+    margin-top: 0;
+    border-bottom: 1px solid #ced4da;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+div[style*="e9ecef"] p {
+    font-size: 0.9rem;
+    color: #555555;
+    font-family: monospace;
+}
     </style>
 </head>
 <body>
@@ -101,4 +326,5 @@ Your balance is: {{ user.balance }}
         </div>
     </div>
 </body>
+
 </html>
