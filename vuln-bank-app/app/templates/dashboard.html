@@ -1,237 +1,28 @@
 {% extends "base.html" %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>SecureBank - Dashboard</title>
-<style>
-    /*
- * Estilo UX Designer Expert (Dashboard)
- * Paleta: Azul (#007AFF), Blanco y Gris claro.
- */
 
-/* 1. Estilos Globales (Para garantizar la consistencia si no viene de la base) */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7f6;
-    color: #333333;
-    margin: 0;
-    padding: 0;
-}
+{% block title %}Dashboard - {{ username }}{% endblock %}
 
-.container {
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 0 20px;
-}
-
-h2 {
-    color: #007AFF;
-    font-weight: 600;
-    margin-bottom: 25px;
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 10px;
-}
-
-/* --- Barra de Navegación (Se repite para el contexto) --- */
-nav {
-    background-color: #ffffff;
-    padding: 15px 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    border-bottom: 3px solid #007AFF;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-nav h1 {
-    margin: 0;
-}
-
-nav h1 a {
-    color: #007AFF;
-    font-size: 1.5rem;
-    text-decoration: none;
-    font-weight: 700;
-}
-
-nav div span, nav div a {
-    color: #333333;
-    text-decoration: none;
-    padding: 8px 12px;
-    margin-left: 10px;
-    border-radius: 4px;
-    font-weight: 500;
-}
-
-nav div a:hover {
-    background-color: #e9ecef;
-}
-
-/* --- 2. Información de la Cuenta (Account Info) --- */
-
-.account-info {
-    background-color: #ffffff;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    margin-bottom: 30px;
-    border-left: 5px solid #007AFF;
-}
-
-.account-info h3 {
-    color: #007AFF; /* Balance en azul principal */
-    font-size: 2.2rem;
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-weight: 700;
-}
-
-.account-info p {
-    margin: 5px 0;
-    color: #555555;
-}
-
-.account-info a {
-    color: #007AFF;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.account-info a:hover {
-    text-decoration: underline;
-}
-
-/* --- 3. Formulario de Transferencia (Transfer Form - CSRF) --- */
-
-.transfer-form {
-    background-color: #ffffff;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-    margin-bottom: 30px;
-}
-
-.transfer-form h3 {
-    color: #333333;
-    font-size: 1.5rem;
-    margin-top: 0;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #eeeeee;
-    padding-bottom: 10px;
-}
-
-.transfer-form form {
-    display: grid;
-    gap: 15px;
-}
-
-.transfer-form input[type="text"],
-.transfer-form input[type="number"],
-.transfer-form textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    box-sizing: border-box;
-    transition: border-color 0.2s;
-}
-
-.transfer-form input:focus,
-.transfer-form textarea:focus {
-    border-color: #007AFF;
-    outline: none;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-.transfer-form textarea {
-    resize: vertical;
-    min-height: 80px;
-}
-
-.transfer-form button[type="submit"] {
-    background-color: #007AFF;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.2s;
-}
-
-.transfer-form button[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-/* --- 4. Herramientas (Tools) --- */
-
-.tools {
-    background-color: #ffffff;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-}
-
-.tools h3 {
-    color: #333333;
-    font-size: 1.5rem;
-    margin-top: 0;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #eeeeee;
-    padding-bottom: 10px;
-}
-
-.tools ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.tools ul li {
-    margin-right: 15px;
-}
-
-.tools ul li a {
-    text-decoration: none;
-    color: #007AFF;
-    background-color: #f8f9fa;
-    padding: 8px 15px;
-    border-radius: 20px; /* Estilo de "pastilla" */
-    border: 1px solid #e9ecef;
-    transition: background-color 0.2s, border-color 0.2s;
-    font-weight: 500;
-}
-
-.tools ul li a:hover {
-    background-color: #007AFF;
-    color: white;
-    border-color: #007AFF;
-}
-</style>
-</head>
-<body>
-    <nav>
-        <h1>🏦 SecureBank</h1>
-        <div>
-            <span>Welcome, {{ user.username }}</span>
-            <a href="/logout">Logout</a>
-        </div>
-    </nav>
+{% block content %}
     
+    {# El código de navegación que tenías en el archivo va en base.html si es común #}
+
     <div class="container">
         <h2>Account Dashboard</h2>
         
         <div class="account-info">
-            <h3>Balance: ${{ "%.2f"|format(user.balance) }}</h3>
-            <p>Account: {{ user.username }}</p>
-            <p>Email: {{ user.email }}</p>
-            <!-- Vulnerabilidad IDOR: enlace a perfil sin protección -->
-            <p><a href="/user/profile/{{ user.id }}">View Profile</a></p>
+            {# NOTA: Asumo que la variable pasada es 'user' (como en tu código original) 
+               o que estás pasando las variables de sesión directamente como en el app.py corregido (username, user_id, is_admin). 
+               Ajusta esto según lo que realmente le pasas desde la función dashboard() en app.py #}
+            
+            {# Usando variables directamente de la sesión (como en el app.py corregido): #}
+            <h3>Balance: $XX,XXX.XX (No disponible en sesión)</h3>
+            <p>Account: {{ username }}</p>
+            <p>User ID: {{ user_id }}</p>
+            <p>Admin Status: {{ is_admin }}</p>
+            {# Enlace de prueba para IDOR #}
+            <p><a href="/api/users/{{ user_id }}">View Profile (IDOR Test)</a></p>
         </div>
         
-        <!-- Vulnerabilidad CSRF: transferencia sin token -->
         <div class="transfer-form">
             <h3>Transfer Money</h3>
             <form action="/transfer" method="POST">
@@ -245,17 +36,11 @@ nav div a:hover {
         <div class="tools">
             <h3>Banking Tools:</h3>
             <ul>
-                <li><a href="/search?q=">Search Users</a></li>
-                <li><a href="/fetch_url?url=http://example.com">Fetch URL</a></li>
-                <li><a href="/parse_xml">XML Parser</a></li>
-                <li><a href="/config">View Configuration</a></li>
-                <!-- Vulnerabilidad RCE -->
-                <li><a href="/exec?cmd=whoami">System Info</a></li>
+                <li><a href="/search?q=">Search Users (SQLi)</a></li>
+                <li><a href="/fetch?url=http://example.com">Fetch URL (SSRF)</a></li>
+                <li><a href="/import_profile">Import Profile (Deserialization)</a></li>
+                <li><a href="/ping?host=127.0.0.1">Ping System (CMDi)</a></li>
             </ul>
         </div>
     </div>
-</body>
-
-</html>
-
-
+{% endblock %}
