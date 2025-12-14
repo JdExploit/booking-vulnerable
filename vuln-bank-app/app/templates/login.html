@@ -2,7 +2,154 @@
 <html>
 <head>
     <title>SecureBank - Login</title>
-    <link rel="stylesheet" href="/static/style.css">
+<style>
+    /*
+ * Estilo UX Designer Expert (Login Page)
+ * Paleta: Azul (#007AFF), Blanco y Gris claro.
+ */
+
+/* 1. Estilos Globales y de Contenedor */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6; /* Fondo claro para destacar el formulario */
+    color: #333333;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 450px; /* Ancho más pequeño, centrado para un formulario */
+    margin: 80px auto 20px auto; /* Centrado vertical y horizontalmente */
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada para la tarjeta */
+    border-top: 5px solid #007AFF; /* Línea de seguridad/marca */
+}
+
+h2 {
+    color: #333333;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* --- 2. Barra de Navegación (NAV) --- */
+
+nav {
+    background-color: #ffffff;
+    padding: 15px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-bottom: 3px solid #007AFF;
+}
+
+nav h1 {
+    margin: 0;
+    color: #007AFF;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* --- 3. Formulario de Login --- */
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+form input[type="text"],
+form input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+form input:focus {
+    border-color: #007AFF;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+form button[type="submit"] {
+    background-color: #007AFF;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: background-color 0.2s;
+}
+
+form button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* --- 4. Credenciales y Hints --- */
+
+.container > p {
+    color: #555555;
+    margin-top: 0;
+    font-size: 0.95rem;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+ul li {
+    background-color: #e9ecef;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    font-family: monospace;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.hint {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.hint h4 {
+    color: #333333;
+    margin-top: 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 5px;
+    font-weight: 600;
+}
+
+.hint p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+.hint a {
+    color: #007AFF;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.hint a:hover {
+    text-decoration: underline;
+}
+</style>
 </head>
 <body>
     <nav>
@@ -33,4 +180,5 @@
         </div>
     </div>
 </body>
+
 </html>
